@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: Webhook Sync Service
+  version: 1.0.0
+  description: >
+    Service for receiving, storing, and forwarding webhook events.
+servers:
+  - url: http://localhost:3000
+paths:
+  /webhook:
+    post:
+      summary: Receive webhook event
+      description: >
+        Receives a webhook event, verifies signature, stores it, and triggers fan-out.
+      parameters:
+        - in: header
+          name: x-github-event
+          required: true
+          schema:
+            type: string
+          description: GitHub event type.
+        - in: header
+          name: x-hub-signature-256
+          required: true
+          schema:
+            type: string
+          description: HMAC SHA256 signature of the request body.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Raw webhook payload.
+      responses:
+        "200":
+          description: Event accepted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  id:
+                    type: integer
+        "401":
+          description: Invalid signature.
+        "500":
+          description: Internal server error.
