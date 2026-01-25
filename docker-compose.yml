@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  webhook-sync-service:
+    build: .
+    container_name: webhook-sync-service
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      WEBHOOK_SECRET: yourgithubappsecret
+      FANOUT_URL_1: https://example.com/endpoint
+    volumes:
+      - ./data:/app/data
+    working_dir: /app
