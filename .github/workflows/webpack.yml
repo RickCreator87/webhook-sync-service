@@ -1,0 +1,2 @@
+- name: Organization workflow action
+  uses: SvanBoxel/organization-workflows@1.4.0
