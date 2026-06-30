@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { verifySignature } from "../middleware/verifySignature";
 import { storeEvent } from "../services/eventStore";
 import { fanoutEvent } from "../services/fanoutService";
