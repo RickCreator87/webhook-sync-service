@@ -9,7 +9,8 @@ export async function fanoutEvent(event: any) {
     try {
       await axios.post(url, event, { timeout: 5000 });
     } catch (err) {
-      console.error("Fanout failed:", url, err.message);
+      const error = err as Error;
+      console.error("Fanout failed:", url, error.message);
     }
   }
 }
