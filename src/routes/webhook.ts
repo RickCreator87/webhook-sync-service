@@ -5,7 +5,7 @@ import { fanoutEvent } from "../services/fanoutService";
 
 const router = Router();
 
-router.post("/", verifySignature, async (req, res) => {
+router.post("/", verifySignature, async (req: Request, res: Response) => {
   const eventType = req.headers["x-github-event"] as string;
   const payload = req.body;
 
